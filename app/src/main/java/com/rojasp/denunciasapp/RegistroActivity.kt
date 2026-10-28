@@ -138,7 +138,7 @@ class RegistroActivity : AppCompatActivity() {
         binding.progressBarRegistro.visibility = View.VISIBLE
         binding.btnRegistrar.isEnabled = false
 
-        Log.d("POST_DESCRIPCION", "Enviando denuncia a Render: $nuevaDenuncia")
+        Log.d("POST_RENDER", "Enviando denuncia a Render: $nuevaDenuncia")
 
         RetrofitClient.instance.crearDenuncia(nuevaDenuncia).enqueue(object : Callback<Denuncia> {
             override fun onResponse(call: Call<Denuncia>, response: Response<Denuncia>) {
@@ -157,14 +157,45 @@ class RegistroActivity : AppCompatActivity() {
                     ).show()
                     finish()
                 } else {
-                    val errStr = response.errorBody()?.string() ?: ""
-                    Log.e("POST_ERROR", "HTTP ${response.code()}: $errStr")
-                    DenunciaCache.agregar(nuevaDenuncia)
+                    val errorDetail = response.errorBody()?.string() ?: ""
+                    Log.e("POST_ERROR", "Error HTTP ${response.code()}: $errorDetail")
+
+                    enviarRutaAlternativa(nuevaDenuncia)
+                }
+            }
+
+            override fun onFailure(call: Call<Denuncia>, t: Throwable) {
+                enviarRutaAlternativa(nuevaDenuncia)
+            }
+        })
+    }
+
+    private fun enviarRutaAlternativa(denuncia: Denuncia) {
+        RetrofitClient.instance.crearDenunciaSinSlash(denuncia).enqueue(object : Callback<Denuncia> {
+            override fun onResponse(call: Call<Denuncia>, response: Response<Denuncia>) {
+                binding.progressBarRegistro.visibility = View.GONE
+                binding.btnRegistrar.isEnabled = true
+
+                if (response.isSuccessful) {
+                    val creada = response.body() ?: denuncia
+                    Log.d("POST_SUCCESS_ALT", "Guardada con éxito en Render. HTTP ${response.code()}")
+                    DenunciaCache.agregar(creada)
 
                     Toast.makeText(
                         this@RegistroActivity,
-                        "Servidor respondió con código ${response.code()}",
-                        Toast.LENGTH_LONG
+                        "¡Denuncia registrada con éxito!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                } else {
+                    val errorDetail = response.errorBody()?.string() ?: ""
+                    Log.e("POST_ERROR_ALT", "Error HTTP ${response.code()}: $errorDetail")
+                    DenunciaCache.agregar(denuncia)
+
+                    Toast.makeText(
+                        this@RegistroActivity,
+                        "Respuesta servidor HTTP ${response.code()}",
+                        Toast.LENGTH_SHORT
                     ).show()
                     finish()
                 }
@@ -173,13 +204,13 @@ class RegistroActivity : AppCompatActivity() {
             override fun onFailure(call: Call<Denuncia>, t: Throwable) {
                 binding.progressBarRegistro.visibility = View.GONE
                 binding.btnRegistrar.isEnabled = true
-                Log.e("POST_FAILURE", "Fallo de red", t)
+                Log.e("POST_FAILURE_ALT", "Fallo de red", t)
 
-                DenunciaCache.agregar(nuevaDenuncia)
+                DenunciaCache.agregar(denuncia)
                 Toast.makeText(
                     this@RegistroActivity,
                     "Error de conexión: ${t.message}",
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_SHORT
                 ).show()
                 finish()
             }

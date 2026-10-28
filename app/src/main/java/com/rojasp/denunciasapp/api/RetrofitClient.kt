@@ -1,6 +1,9 @@
 package com.rojasp.denunciasapp.api
 
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
+import com.rojasp.denunciasapp.model.Denuncia
+import com.rojasp.denunciasapp.model.DenunciaListDeserializer
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -21,11 +24,25 @@ object RetrofitClient {
             .writeTimeout(90, TimeUnit.SECONDS)
             .followRedirects(true)
             .followSslRedirects(true)
+            .addInterceptor { chain ->
+                val original = chain.request()
+                val requestBuilder = original.newBuilder()
+                    .header("Accept", "application/json")
+
+                if (original.body != null && original.header("Content-Type") == null) {
+                    requestBuilder.header("Content-Type", "application/json")
+                }
+
+                chain.proceed(requestBuilder.build())
+            }
             .addInterceptor(logging)
             .build()
     }
 
+    private val listType = object : TypeToken<List<Denuncia>>() {}.type
+
     private val gson = GsonBuilder()
+        .registerTypeAdapter(listType, DenunciaListDeserializer())
         .setLenient()
         .create()
 
