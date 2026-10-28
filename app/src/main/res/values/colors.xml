@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Brand Colors -->
+    <color name="primary_dark">#0F172A</color>
+    <color name="primary">#1E40AF</color>
+    <color name="primary_light">#2563EB</color>
+    <color name="accent">#0284C7</color>
+
+    <!-- Status Badge Colors -->
+    <color name="badge_pending_bg">#FEF2F2</color>
+    <color name="badge_pending_text">#DC2626</color>
+
+    <color name="badge_attended_bg">#F0FDF4</color>
+    <color name="badge_attended_text">#15803D</color>
+
+    <!-- Surface & Text Colors -->
+    <color name="bg_main">#F8FAFC</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="card_stroke">#CBD5E1</color>
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#475569</color>
+
+    <!-- Basic -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="divider">#E2E8F0</color>
+</resources>

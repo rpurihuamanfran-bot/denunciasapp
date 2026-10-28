@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main"
+    tools:context=".DetalleActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary_dark"
+        app:title="Detalle de Denuncia"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="?attr/homeAsUpIndicator" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="3dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/card_stroke"
+            app:cardBackgroundColor="@color/card_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- ID & Estado Badge -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/tvDetalleId"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_dark"
+                        tools:text="Denuncia #12" />
+
+                    <TextView
+                        android:id="@+id/tvDetalleEstado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_badge_pending"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/badge_pending_text"
+                        tools:text="PENDIENTE" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E2E8F0"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Tipo -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TIPO DE INCIDENTE"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvDetalleTipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="14dp"
+                    tools:text="ROBO A MANO ARMADA" />
+
+                <!-- DNI -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DNI DEL DENUNCIANTE"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvDetalleDni"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="14dp"
+                    tools:text="72839401" />
+
+                <!-- Fecha -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FECHA Y HORA"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvDetalleFecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="14dp"
+                    tools:text="2026-03-20T14:30:00" />
+
+                <!-- Dirección -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DIRECCIÓN"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvDetalleDireccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="14dp"
+                    tools:text="Av. Javier Prado 1234, San Isidro" />
+
+                <!-- Descripción -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DESCRIPCIÓN DEL HECHO"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvDetalleDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="24dp"
+                    tools:text="Sujeto sospechoso sustrajo pertenencias a transeúnte y huyó..." />
+
+                <ProgressBar
+                    android:id="@+id/progressBarDetalle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <!-- Botón Atender -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAtender"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="MARCAR COMO ATENDIDO"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:backgroundTint="#166534"
+                    app:cornerRadius="10dp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </ScrollView>
+
+</LinearLayout>
