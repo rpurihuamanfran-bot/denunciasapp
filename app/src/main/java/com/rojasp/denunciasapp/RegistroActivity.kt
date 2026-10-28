@@ -157,13 +157,14 @@ class RegistroActivity : AppCompatActivity() {
                     ).show()
                     finish()
                 } else {
-                    Log.e("POST_ERROR", "Error HTTP ${response.code()}: ${response.errorBody()?.string()}")
+                    val errStr = response.errorBody()?.string() ?: ""
+                    Log.e("POST_ERROR", "HTTP ${response.code()}: $errStr")
                     DenunciaCache.agregar(nuevaDenuncia)
 
                     Toast.makeText(
                         this@RegistroActivity,
-                        "Guardada en la aplicación",
-                        Toast.LENGTH_SHORT
+                        "Servidor respondió con código ${response.code()}",
+                        Toast.LENGTH_LONG
                     ).show()
                     finish()
                 }
@@ -177,8 +178,8 @@ class RegistroActivity : AppCompatActivity() {
                 DenunciaCache.agregar(nuevaDenuncia)
                 Toast.makeText(
                     this@RegistroActivity,
-                    "Guardada en la aplicación",
-                    Toast.LENGTH_SHORT
+                    "Error de conexión: ${t.message}",
+                    Toast.LENGTH_LONG
                 ).show()
                 finish()
             }
